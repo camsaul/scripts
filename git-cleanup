@@ -1,0 +1,19 @@
+#! /bin/bash
+
+# Switch back to master
+git checkout master
+
+# Delete all local branches besides master
+for branch in `git branch | grep -v 'master'`
+do
+    git branch -D $branch
+done
+
+# Delete all remote tracking branches besides origin/master
+for branch in `git branch --remotes | grep -v 'origin/master'`
+do
+    git branch --remotes -D $branch
+done
+
+# Now re-fetch all the remote tracking branches that still exist
+git pull
